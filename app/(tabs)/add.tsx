@@ -11,7 +11,7 @@ const HomeValuesInput = () => {
 
   const handleSend = async () => {
     if (!temp.trim() || !humidity.trim()) {
-      Alert.alert("⚠️ Uyarı", "Lütfen tüm alanları doldurun!");
+      Alert.alert("⚠️ Error ");
       return;
     }
 

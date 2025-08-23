@@ -5,8 +5,22 @@ import useFetch from "@/services/useFetch"
 import React from "react"
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native"
 
+type HomeValue = {
+  temp: number;
+  humidity: number;
+  $updatedAt: string;
+};
+
+interface Props {
+  homeValues: HomeValue[];
+}
+
 export default function Index() {
   const { data: homeValues, loading, error } = useFetch(getHomeValues)
+
+  const sortedValues = (homeValues ?? []).sort(
+    (a:any, b:any) => new Date(b.$updatedAt).getTime() - new Date(a.$updatedAt).getTime()
+  );
 
   return (
     <View className="flex-1 bg-primary">
@@ -27,13 +41,13 @@ export default function Index() {
             ❌ Hata: {error.message}
           </Text>
         ) : (
-          <View className="mt-10">
+          <View className=" flex-1  mt-10">
             <Text className="text-lg text-white font-bold mb-5 text-center">
               🌡️ Home Values
             </Text>
 
             <FlatList
-              data={homeValues}
+              data={sortedValues}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
                 <View className="bg-white/10 rounded-xl p-4 mb-3">
@@ -41,7 +55,10 @@ export default function Index() {
                     🌡️ Temp: {item.temp}
                   </Text>
                   <Text className="text-white text-base">
-                    💧 Humidity: {item.humidity}
+                    💧 Humidity: {item.humidity} %
+                  </Text>
+                  <Text className="text-white text-sm text-gray-300">
+                    🕒 Updated At: {new Date(item.$updatedAt).toLocaleString()}
                   </Text>
                 </View>
               )}
