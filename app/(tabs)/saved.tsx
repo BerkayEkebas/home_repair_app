@@ -8,6 +8,14 @@ const saved = () => {
         <Image source={icons.save} className='size-10' tintColor="#fff"/>
         <Text className='text-gray-500 text-base'>Save</Text>
       </View>
+      {/* SElam burayi duzelt */}
+      {/* SElam burayi duzelt */}
+      {/* SElam burayi duzelt */}
+      {/* SElam burayi duzelt */}
+      {/* SElam burayi duzelt */}
+      {/* TODO */}
+      {/* SElam burayi duzelt */}
+      {/* SElam burayi duzelt */}
     </View>
   )
 }
