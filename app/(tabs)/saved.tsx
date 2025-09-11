@@ -1,5 +1,4 @@
 import { icons } from '@/constants/icons'
-import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 const saved = () => {
   return (
@@ -12,8 +11,9 @@ const saved = () => {
       {/* SElam burayi duzelt */}
       {/* SElam burayi duzelt */}
       {/* SElam burayi duzelt */}
-      {/* SElam burayi duzelt */}
+      {/* tamamt */}
       {/* TODO */}
+      
       {/* SElam burayi duzelt */}
       {/* SElam burayi duzelt */}
     </View>
