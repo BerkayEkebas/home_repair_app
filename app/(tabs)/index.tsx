@@ -43,7 +43,8 @@ export default function Index() {
         ) : (
           <View className=" flex-1  mt-10">
             <Text className="text-lg text-white font-bold mb-5 text-center">
-              🌡️ Home Values
+              🌡️ Home Values Ahmet
+
             </Text>
 
             <FlatList
