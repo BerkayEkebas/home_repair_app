@@ -7,7 +7,7 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer");
+  const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -21,11 +21,11 @@ export default function Register() {
         password,
         role,
       });
-      Alert.alert("Kayıt Başarılı", "Hesabınız başarıyla oluşturuldu!");
+      Alert.alert("Register successfull");
       router.push("/login");
     } catch (err) {
       console.log(err.response?.data || err.message);
-      setError(err.response?.data || "Bir hata oluştu, lütfen tekrar deneyin.");
+      setError(err.response?.data || "Error");
     } finally {
       setLoading(false);
     }
@@ -33,27 +33,27 @@ export default function Register() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>회원가입</Text>
+      <Text style={styles.title}>학생가입</Text>
 
       {/* Rol seçimi */}
       <View style={styles.roleContainer}>
         <TouchableOpacity
-          style={[styles.roleButton, role === "customer" && styles.selectedRole]}
-          onPress={() => setRole("customer")}
+          style={[styles.roleButton, role === "student" && styles.selectedRole]}
+          onPress={() => setRole("student")}
         >
-          <Text style={[styles.roleText, role === "customer" && styles.selectedRoleText]}>
-            회원가입
+          <Text style={[styles.roleText, role === "student" && styles.selectedRoleText]}>
+            학생가입
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={[styles.roleButton, role === "expert" && styles.selectedRole]}
           onPress={() => setRole("expert")}
         >
           <Text style={[styles.roleText, role === "expert" && styles.selectedRoleText]}>
             전문가 가입
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <TextInput
@@ -93,7 +93,7 @@ export default function Register() {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => router.push("/login")}>
-        <Text style={styles.link}>Zaten üye misiniz? Giriş Yapın</Text>
+        <Text style={styles.link}>로그인</Text>
       </TouchableOpacity>
     </View>
   );
