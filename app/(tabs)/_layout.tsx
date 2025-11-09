@@ -26,18 +26,73 @@ const TabIcon = ({ focused, icon, title }: any) => {
 
 const _layout = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchRole = async () => {
       try {
         const role = await AsyncStorage.getItem("role");
-        setUserRole(role);
+        setUserRole(role?.replace(/"/g, "") || null);
       } catch (err) {
         console.error("Rol alınamadı:", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchRole();
   }, []);
+
+  // Eğer hala loading ise veya rol bilgisi yoksa boş screen döndür
+  if (loading) {
+    return (
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarItemStyle: {
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          },
+          tabBarStyle: {
+            backgroundColor: "#0f0D23",
+            borderRadius: 50,
+            marginHorizontal: 20,
+            marginBottom: 36,
+            height: 52,
+            position: "absolute",
+            overflow: "hidden",
+            borderColor: "#0f0D23",
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Home",
+            headerShown: false,
+            tabBarButton: () => null, // Gizle
+          }}
+        />
+        <Tabs.Screen
+          name="adminDashboard"
+          options={{
+            title: "Admin",
+            headerShown: false,
+            tabBarButton: () => null, // Gizle
+          }}
+        />
+        <Tabs.Screen
+          name="mypage"
+          options={{
+            title: "My Page",
+            headerShown: false,
+            tabBarButton: () => null, // Gizle
+          }}
+        />
+      </Tabs>
+    );
+  }
 
   return (
     <Tabs
@@ -61,6 +116,7 @@ const _layout = () => {
         },
       }}
     >
+      {/* Her zaman gösterilecek tab'lar */}
       <Tabs.Screen
         name="index"
         options={{
@@ -72,6 +128,7 @@ const _layout = () => {
         }}
       />
 
+      {/* Sadece admin kullanıcılar için Admin Dashboard */}
       {userRole === "admin" && (
         <Tabs.Screen
           name="adminDashboard"
@@ -79,8 +136,32 @@ const _layout = () => {
             title: "Admin",
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <TabIcon focused={focused} icon={icons.add} title="Admin" />
+              <TabIcon focused={focused} icon={icons.star} title="Admin" />
             ),
+          }}
+        />
+      )}
+
+      {/* Her zaman gösterilecek tab'lar */}
+      <Tabs.Screen
+        name="mypage"
+        options={{
+          title: "My Page",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={icons.person} title="My Page" />
+          ),
+        }}
+      />
+
+      {/* Admin değilse adminDashboard'u tamamen gizle */}
+      {userRole !== "admin" && (
+        <Tabs.Screen
+          name="adminDashboard"
+          options={{
+            title: "Admin",
+            headerShown: false,
+            tabBarButton: () => null, // Tab bar'da gösterme
           }}
         />
       )}
